@@ -1,0 +1,25 @@
+# Load necessary libraries
+library(bibliometrix)  # Assuming bibliometrix is used for handling bibliographic data
+
+# Set the working directory to where your files are located
+setwd("path_to_your_directory")
+
+# Import IEEE data file
+ieee_data <- convert2df("IEEE.bib", dbsource = "isi", format = "bibtex")
+
+# Import SCOPUS data file
+scopus_data <- convert2df("SCOPUS.bib", dbsource = "scopus", format = "bibtex")
+
+# Import Web of Science data file
+wos_data <- convert2df("WOS.txt", dbsource = "isi", format = "plaintext")
+
+# Import EBSCO data file
+# Adjust the function parameters based on the actual format of EBSCO file if necessary
+ebsco_data <- convert2df("EBSCO.bib", dbsource = "other", format = "bibtex")
+
+# Combine all data files into one dataframe
+combined_data <- mergeDbSources(ieee_data, scopus_data, wos_data, ebsco_data, remove.duplicates = TRUE)
+
+# Verify and view the combined data
+print(dim(combined_data))  # Print dimensions of the combined dataframe
+head(combined_data)        # View the first few rows of the combined dataframe
